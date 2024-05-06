@@ -1,5 +1,7 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
+import simpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 const apiKey = '43685293-a1262c6d1e0da8b74ac4bda00';
 const apiUrl = 'https://pixabay.com/api/';
 const searchForm = document.querySelector('form.search-form');
@@ -11,7 +13,7 @@ button.setAttribute('hidden', '');
 const createImage = photoData => {
   const galleryElement = document.createElement('div');
   galleryElement.classList.add('photo-card');
-  galleryElement.innerHTML = `<img src="${photoData.webformatURL}" alt="${photoData.tags}" loading="lazy" />
+  galleryElement.innerHTML = `<a class="gallery-item" href=${photoData.largeImageURL}><img src="${photoData.webformatURL}" alt="${photoData.tags}" loading="lazy" />
   <div class="info">
     <p class="info-item">
       <b>Likes: ${photoData.likes}</b>
@@ -25,7 +27,7 @@ const createImage = photoData => {
     <p class="info-item">
       <b>Downloads: ${photoData.downloads}</b>
     </p>
-  </div>`;
+  </div></a>`;
   gallery.append(galleryElement);
 };
 const fetchImages = async enteredValue => {
@@ -92,3 +94,8 @@ button.addEventListener('click', () => {
       button.removeAttribute('hidden');
     });
 });
+
+galerry.addEventListener('click', zoomPhoto);
+const zoomPhoto = () => {
+  const lightboxGalerry = new simpleLightbox('.gallery a');
+};
