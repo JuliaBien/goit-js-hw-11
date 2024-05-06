@@ -1,0 +1,22 @@
+.photo-card {
+  list-style: none;
+  text-align: center;
+}
+.gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+}
+.info {
+  display: block;
+  text-align: center;
+}
+.info-item {
+  text-decoration: none;
+}
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}

@@ -5,13 +5,13 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 const apiKey = '43685293-a1262c6d1e0da8b74ac4bda00';
 const apiUrl = 'https://pixabay.com/api/';
 const searchForm = document.querySelector('form.search-form');
-const gallery = document.querySelector('div.gallery');
+const gallery = document.querySelector('ul.gallery');
 const button = document.querySelector('button.load-more');
 let enteredValue = undefined;
 let page = 1;
 button.setAttribute('hidden', '');
 const createImage = photoData => {
-  const galleryElement = document.createElement('div');
+  const galleryElement = document.createElement('li');
   galleryElement.classList.add('photo-card');
   galleryElement.innerHTML = `<a class="gallery-item" href=${photoData.largeImageURL}><img src="${photoData.webformatURL}" alt="${photoData.tags}" loading="lazy" />
   <div class="info">
@@ -92,10 +92,22 @@ button.addEventListener('click', () => {
     })
     .finally(() => {
       button.removeAttribute('hidden');
+      lightboxGallery.refresh();
     });
 });
 
-galerry.addEventListener('click', zoomPhoto);
-const zoomPhoto = () => {
-  const lightboxGalerry = new simpleLightbox('.gallery a');
+const zoomPhoto = ev => {
+  ev.preventDefault();
+  const lightboxGallery = new simpleLightbox('.gallery a');
 };
+
+gallery.addEventListener('click', zoomPhoto);
+
+const { height: cardHeight } = document
+  .querySelector('.gallery')
+  .firstElementChild.getBoundingClientRect();
+
+window.scrollBy({
+  top: cardHeight * 2,
+  behavior: 'smooth',
+});
